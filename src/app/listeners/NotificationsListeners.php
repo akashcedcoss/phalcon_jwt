@@ -3,6 +3,8 @@
 namespace App\Listeners;
 
 use IndexController;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Orders;
 use Phalcon\Di\Injectable;
 use Phalcon\Events\Event;
@@ -83,16 +85,22 @@ class NotificationsListeners extends Injectable
             } else {
                 $action = $this->router->getActionName();
             }
-            $bearer = $application->request->get('bearer')??'invalidToken';
-            if($bearer) {
+            $bearer = $application->request->get('bearer');
+            if ($bearer) {
                 try {
-                    $parser = new parser();
-                    $tokenobject = $parser->parse($bearer);
-                    $now        = new \DateTimeImmutable();
-                    $expires    = $now->getTimestamp();
-                    $validator = new Validator($tokenobject,100);
-                    $claims = $tokenobject->getClaims()->getPayload();
-                    $r = $claims['sub'];
+                    // $parser = new parser();
+                    // $tokenobject = $parser->parse($bearer);
+                    // $now        = new \DateTimeImmutable();
+                    // $expires    = $now->getTimestamp();
+                    // $validator = new Validator($tokenobject,100);
+                    // $claims = $tokenobject->getClaims()->getPayload();
+                    // $r = $claims['sub'];
+                    $key = "example_key";
+                    $decoded = JWT::decode($bearer, new Key($key, 'HS256'));
+                    // print_r($decoded);
+                    // die;
+                    $decoded_array = (array) $decoded;
+                    $r = $decoded_array['role'];
                     if (!$bearer || true !== $acl->isAllowed($r, $controller, $action)) {
                         echo 'Access Denied :( ';
                         die;
