@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h2>Settings</h2>
+
+<?php echo $this->tag->form("/index/settingsdata"); ?>
+
+<p>
+  <label for="title">Title Optimization</label>
+  <?php echo $this->tag->select(
+[
+  'title',
+    [
+      '1' => 'with tag', 
+      '2' => 'without tag',
+    ],
+  
+]
+); ?>
+</p>
+    <p>
+        <label for="price">Default Price</label>
+        <?php echo $this->tag->textField("price"); ?>
+    </p>
+    <p>
+        <label for="stock">Default Stock</label>
+        <?php echo $this->tag->textField("stock"); ?>
+    </p>
+    <p>
+        <label for="zipcode">Default Zipcode</label>
+        <?php echo $this->tag->textField("zipcode"); ?>
+    </p>
+    <p>
+        <?php echo $this->tag->submitButton("Add Settings"); ?><br>
+    </p>
+</form>
+<p>
+   
+</p>
+</body>
+</html>

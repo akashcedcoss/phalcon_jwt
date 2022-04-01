@@ -1,0 +1,106 @@
+
+
+<?php
+
+use App\Listeners\getdata;
+
+$roletable = Role::find();
+
+$compdata = new getdata();
+$controller = $compdata->getController();
+
+?>
+
+
+<h2 class="text-center py-3">Give Permissions</h2>
+<?php 
+
+
+?>
+<?php echo $this->tag->form(['class'=> ' role w-25 m-auto ']); 
+foreach ($roletable as $role)
+{ 
+
+echo '<span class = "d-block">'.$this->tag->checkField(
+    [
+        "role",
+        "value" => $role->role,
+        "class" => 'form-check-input'
+    ]
+).$role->role;
+echo '</span>';
+} echo '<br>';   
+?>
+<?php 
+foreach ($controller as $key=>$value)
+{ 
+    echo $this->tag->checkField(
+    [
+        "controller",
+        "value" => $key,
+        "class" => 'form-check-input'
+    ]
+)."$key".'<br>';   
+    
+
+}
+echo '</div>'
+?>
+    <p class="text-center my-3">
+        <?php echo $this->tag->submitButton(["Next", 'name' => 'next', 'class' => 'btn btn-success w-25']); ?>
+    </p>
+
+</form>
+
+<?php 
+  if($this->request->getPost('next')) {
+    // print_r($this->request->getPost());
+    $roledb = $this->request->getPost()['role'];
+    $controllerdb = $this->request->getPost()['controller'];
+    $actions = $compdata->getMethod($controllerdb);
+
+    
+    echo $this->tag->form(["permission/methodsadd?role=".$this->request->getQuery('role'), 'class'=> ' role w-25 m-auto ']);
+?>
+<?php 
+
+
+foreach ($actions as $key=>$value)
+{ 
+    echo $this->tag->checkField(
+    [
+        "actions[]",
+        "value" => $value,
+        "class" => 'form-check-input'
+    ]
+)."$value".'<br>';   
+    
+
+}
+
+echo $this->tag::hiddenField(
+    [
+        "roledb",
+        "value" => $roledb,
+    ]
+);
+
+echo $this->tag::hiddenField(
+    [
+        "controllerdb",
+        "value" => $controllerdb,
+    ]
+);
+
+
+?>
+
+    <p class="text-center my-3">
+        <?php echo $this->tag->submitButton(["Permit", 'name' => 'next', 'class' => 'btn btn-success w-25']); ?>
+    </p>    
+<?php   
+
+  } else {
+      echo 'Please select a controller';
+  }
+?>

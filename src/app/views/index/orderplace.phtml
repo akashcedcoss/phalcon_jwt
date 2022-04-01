@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h2>Place your Order</h2>
+
+<?php echo $this->tag->form("/index/placeorder"); ?>
+
+    <p>
+        <label for="name">Customer Name</label>
+        <?php echo $this->tag->textField("name"); ?>
+    </p>
+    <p>
+        <label for="address">Customer Address</label>
+        <?php echo $this->tag->textArea("address"); ?>
+    </p>
+    <p>
+        <label for="zipcode">Zipcode</label>
+        <?php echo $this->tag->textField("zipcode"); ?>
+    </p>
+    <p>
+        <label for="product">Products</label>
+        <?php echo $this->tag->select(
+    [
+        'product',
+        $productsfind,
+        'using'      => [
+            'name', 
+            'name',
+        ],
+        'useEmpty'   => true,
+        'emptyText'  => 'Choose Product',
+        'emptyValue' => '0',
+    ]
+); ?>
+    </p>
+    <p>
+        <label for="quantity">Quantity</label>
+        <?php echo $this->tag->textField("quantity"); ?>
+    </p>
+    <p>
+        <?php echo $this->tag->submitButton("Place Order"); ?><br>
+    </p>
+</form>
+<p>
+   
+</p>
+</body>
+</html>
