@@ -1,20 +1,18 @@
 <?php
 
-use Phalcon\Mvc\Controller;
+// include(APP_PATH . '/vendor/autoload.php');
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Phalcon\Http\Request;
-// use Phalcon\Security\JWT\Builder;
-use Phalcon\Security\JWT\Signer\Hmac;
-use Phalcon\Security\JWT\Token\Parser;
-use Phalcon\Security\JWT\Validator;
 use Phalcon\Escaper;
-// use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\Controller;
 use Phalcon\Logger;
 use Phalcon\Logger\Adapter\Stream;
 
 use Phalcon\Security\JWT\Builder;
-// use Phalcon\Security\JWT\Signer\Hmac;
-// use Phalcon\Security\JWT\Token\Parser;
-// use Phalcon\Security\JWT\Validator;
+use Phalcon\Security\JWT\Signer\Hmac;
+use Phalcon\Security\JWT\Token\Parser;
+use Phalcon\Security\JWT\Validator;
 
 class IndexController extends Controller
 {
@@ -190,10 +188,10 @@ class IndexController extends Controller
         // die;
         
 
-        $signer  = new Hmac();
+        // $signer  = new Hmac();
 
         // Builder object
-        $builder = new Builder($signer);
+        // $builder = new Builder($signer);
         
         $now        = new DateTimeImmutable();
         $issued     = $now->getTimestamp();
@@ -202,22 +200,37 @@ class IndexController extends Controller
         $passphrase = 'QcMpZ&b&mo3TPsPk668J6QH8JA$&U&m2';
         
         // Setup
-        $builder
-        ->setAudience('https://target.phalcon.io')  // aud
-        ->setContentType('application/json')        // cty - header
-        ->setExpirationTime($expires)               // exp 
-        ->setId('abcd123456789')                    // JTI id 
-        ->setIssuedAt($issued)                      // iat 
-        ->setIssuer('https://phalcon.io')           // iss 
-        ->setNotBefore($notBefore)                  // nbf
-        ->setSubject($newrole)   // sub
-            ->setPassphrase($passphrase)                // password 
-            ;
+        // $builder
+        // ->setAudience('https://target.phalcon.io')  // aud
+        // ->setContentType('application/json')        // cty - header
+        // ->setExpirationTime($expires)               // exp 
+        // ->setId('abcd123456789')                    // JTI id 
+        // ->setIssuedAt($issued)                      // iat 
+        // ->setIssuer('https://phalcon.io')           // iss 
+        // ->setNotBefore($notBefore)                  // nbf
+        // ->setSubject($newrole)   // sub
+        //     ->setPassphrase($passphrase)                // password 
+        //     ;
             
-        // Phalcon\Security\JWT\Token\Token object
-        $tokenObject = $builder->getToken();
-        
-        // -----------------------generated -----------------------------------------------------
+        // // Phalcon\Security\JWT\Token\Token object
+        // $tokenObject = $builder->getToken();
+
+        $key = "example_key";
+
+        $payload = array(
+            "iss" => $this->url->getBaseUri(),
+            "aud" => $this->url->getBaseUri(),
+            "iat" => $issued,
+            "nbf" => $notBefore,
+            "exp" => $expires,
+            "role" => $newrole
+        );
+
+        $jwt = JWT::encode($payload, $key, 'HS256');
+        // print_r($jwt);
+        // die();
+
+        // // -----------------------generated -----------------------------------------------------
         
         
         // $escaper = new Escaper();
@@ -227,7 +240,7 @@ class IndexController extends Controller
             "email" => $this->request->getPost('email'),
             "password" => $this->request->getPost('password'),
             "role" => $this->request->getPost('newrole'),
-            'jwt' => $tokenObject->getToken()
+            'jwt' => $jwt
             
         );
        
