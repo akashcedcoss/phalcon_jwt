@@ -18,7 +18,10 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
-        //
+        if($this->request->isPost()) {
+            $locale = $this->request->getPost("locale");
+            $this->response->redirect("index/index/?bearer=".$this->request->get("bearer")."&locale=".$locale);
+        }
     }
     public function addproductAction()
     {
