@@ -1,57 +1,74 @@
+<form method="get" action="">
+
+<label for="locale">Choose a language:</label>
+
+<select name="locale" id="locale" onchange="submit()">
+  <option value="none">None</option>
+  <option value="en_US">US</option>
+  <option value="en">English</option>
+  <option value="nl_NL">Dutch</option>
+</select>
+</form>
+<?php
+// echo $this->Locale->_('Add Product');
+   
+
+
+?>
 <?php
 echo $this->tag->linkTo(
     [
         '/index/addproduct',
-        'Add Products',
+        $this->Locale->_('Add Product'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/listproduct',
-        'List Products',
+        $this->Locale->_('List Products'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br>'.'<br>';
 echo $this->tag->linkTo(
     [
         '/index/orderplace',
-        'Place Order',
+        $this->Locale->_('Place Order'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/listorder',
-        'Show Orders',
+        $this->Locale->_('Show Orders'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/settings',
-        'Settings',
+        $this->Locale->_('Settings'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/addrole',
-        'Add Role',
+        $this->Locale->_('Add Role'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/addcomponent',
-        'Add Component',
+        $this->Locale->_('Add Component'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/adduser',
-        'Add User',
+        $this->Locale->_('Add User'),
         'class' => 'btn btn-primary w-25'
     ]
 );

@@ -16,6 +16,7 @@ use Phalcon\Security\JWT\Builder;
 use Phalcon\Security\JWT\Signer\Hmac;
 use Phalcon\Security\JWT\Token\Parser;
 use Phalcon\Security\JWT\Validator;
+use App\Listeners\Locale;
 
 class NotificationsListeners extends Injectable
 {
@@ -107,11 +108,12 @@ class NotificationsListeners extends Injectable
                     }
 
                 }catch (\Exception $e) {
-                    echo "Try Valid Token Please";
+                    echo $this->Locale->_('Try Valid Token Please');
+                    
                     die;
                 }
             } else {
-                echo 'Token not found';
+                echo $this->Locale->_('Token not found');
                 die;
             }
 

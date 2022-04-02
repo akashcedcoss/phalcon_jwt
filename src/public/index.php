@@ -12,6 +12,7 @@ use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Config;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Acl\Adapter\Memory;
+use App\Listeners\Locale;
 
 
 $config = new Config([]);
@@ -59,6 +60,8 @@ $container->set(
 );
 
 $application = new Application($container);
+
+$container->set('Locale', (new Locale())->getTranslator());
 
 
 
