@@ -1,6 +1,6 @@
 <?php
 
-// app/messages/en.php
+// use app/messages/en.php;
 $messages = [
     'Add Product'      => 'Add Product_en_US',
     'List Product'     => 'List Product_en_US',

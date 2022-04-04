@@ -14,6 +14,13 @@ use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Acl\Adapter\Memory;
 use App\Listeners\Locale;
 
+use Phalcon\Cache;
+use Phalcon\Cache\AdapterFactory;
+use Phalcon\Storage\SerializerFactory;
+use Phalcon\Cache\CacheFactory;
+// use Phalcon\Cache\AdapterFactory;
+// use Phalcon\Storage\SerializerFactory;
+
 
 $config = new Config([]);
 
@@ -65,6 +72,41 @@ $container->set('Locale', (new Locale())->getTranslator());
 
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// $serializerFactory = new SerializerFactory();
+// $adapterFactory    = new AdapterFactory($serializerFactory);
+
+// $options = [
+//     'defaultSerializer' => 'Json',
+//     'lifetime'          => 7200
+// ];
+
+// $adapter = $adapterFactory->newInstance('apcu', $options);
+
+// $cache = new Cache($adapter);
+
+
+
+
+
+$options = [
+    'defaultSerializer' => 'Json',
+    'lifetime'          => 7200,
+];
+
+$serializerFactory = new SerializerFactory();
+$adapterFactory    = new AdapterFactory(
+    $serializerFactory,
+    $options
+);
+
+$cacheFactory = new CacheFactory($adapterFactory);
+
+$cache = $cacheFactory->newInstance('apcu');
+$container->set('cache', $cache);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 $container->set(
     'db',
@@ -99,7 +141,7 @@ $eventsManager->attach(
 // ...
 
 // Bind the eventsManager to the ACL component
-$application->setEventsManager($eventsManager);
+// $application->setEventsManager($eventsManager);
 
 
 

@@ -52,7 +52,7 @@ class MainTask extends Task
         $token = JWT::encode($payload, $key, 'HS256');
         echo $token;
     }
-    public function stockAction($key=null, $val = null){
+    public function stockAction ($key = null, $val = null) {
         if (isset($key)) {
             $setting = \Settings::findFirst(1) ?? new \Settings();
             if (strtolower($key) == "price") {
@@ -74,23 +74,21 @@ class MainTask extends Task
             echo "Usage: settings [price/stock] [value]" . PHP_EOL;
         }
     }
-    public function lessAction(){
+    public function lessAction() {
         $pro = \Products::find([
             'conditions'=>'stock < 10'
         ]);
         echo count($pro);
         echo PHP_EOL;
     }
-    public function removecacheAction(){
+    public function removecacheAction() {
         unlink('../app/security/acl.cache');
     }
-    public function neworderAction(){
+    public function neworderAction() {
         $order = \Orders::findFirst([
             "order"=>'order_id desc'
         ]);
         echo $order;
         echo PHP_EOL;
     }
-
-    
 }

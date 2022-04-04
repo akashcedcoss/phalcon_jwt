@@ -1,3 +1,22 @@
+<?php
+$this->cache->set('Setting', $this->Locale->_('Settings'));
+$this->cache->set('AddProduct', $this->Locale->_('Add Product'));
+$this->cache->set('ListProduct', $this->Locale->_('List Product'));
+$this->cache->set('PlaceOrder', $this->Locale->_('Place Order'));
+$this->cache->set('ShowOrders', $this->Locale->_('Show Orders'));
+$this->cache->set('AddRole', $this->Locale->_('Add Role'));
+$this->cache->set('AddComponent', $this->Locale->_('Add Component'));
+$this->cache->set('AddUser', $this->Locale->_('Add User'));
+$this->cache->set('TryValidTokenPlease', $this->Locale->_('Try Valid Token Please'));
+$this->cache->set('Tokennotfound', $this->Locale->_('Token not found'));
+// $this->cache->set('settings', $this->Locale->_('Settings'));
+
+
+
+
+
+
+?>
 <form method="POST" action="">
 
 <label for="locale">Choose a language:</label>
@@ -19,56 +38,57 @@
 echo $this->tag->linkTo(
     [
         '/index/addproduct',
-        $this->Locale->_('Add Product'),
+        $this->cache->get('AddProduct'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/listproduct',
-        $this->Locale->_('List Products'),
+        $this->cache->get('ListProduct'),
+        
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br>'.'<br>';
 echo $this->tag->linkTo(
     [
         '/index/orderplace',
-        $this->Locale->_('Place Order'),
+        $this->cache->get('PlaceOrder'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/listorder',
-        $this->Locale->_('Show Orders'),
+        $this->cache->get('ShowOrders'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/settings',
-        $this->Locale->_('Settings'),
+        $this->cache->get('Setting'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/addrole',
-        $this->Locale->_('Add Role'),
+        $this->cache->get('AddRole'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/addcomponent',
-        $this->Locale->_('Add Component'),
+        $this->cache->get('AddComponent'),
         'class' => 'btn btn-primary w-25'
     ]
 ).'<br> <br>';
 echo $this->tag->linkTo(
     [
         '/index/adduser',
-        $this->Locale->_('Add User'),
+        $this->cache->get('AddUser'),
         'class' => 'btn btn-primary w-25'
     ]
 );
